@@ -1,13 +1,13 @@
-import { BaseCommandInteraction, Client } from "discord.js";
+import { CommandInteraction, Client, ApplicationCommandType, ApplicationCommandOptionType } from "discord.js";
 import { Command } from "../Command";
 
 export default {
     name: "rpc",
     description: "Play rock paper scissors",
-    type: "CHAT_INPUT",
+    type: ApplicationCommandType.ChatInput,
     ephemeral: true,
     options: [{
-        type: 'STRING',
+        type: ApplicationCommandOptionType.String,
         name: 'pick',
         required: true,
         description: 'rock paper or scissors',
@@ -26,7 +26,7 @@ export default {
             }
         ],
     }],
-    run: async (client: Client, interaction: BaseCommandInteraction) => {
+    run: async (client: Client, interaction: CommandInteraction) => {
         const rps = ["rock", "paper", "scissors"]
         const pick: string = interaction.options.get('pick').value as string;
 

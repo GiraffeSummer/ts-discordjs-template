@@ -1,20 +1,21 @@
-import { BaseCommandInteraction, Client } from "discord.js";
-import { ApplicationCommandTypes } from "discord.js/typings/enums";
+import { CommandInteraction, Client, ApplicationCommandType } from "discord.js";
 import { ContextCommand } from "../Command";
-import Embed from '../lib/Embed'
 
 //just copy and paste this commands, it has a few things pre made so it's easy as template
 export default {
     name: "avatar",
-    type: ApplicationCommandTypes.USER,
-    run: async (client: Client, interaction: BaseCommandInteraction) => {
+    type: ApplicationCommandType.User,
+    run: async (client: Client, interaction: CommandInteraction) => {
         const user = interaction.options.get('user')?.user || interaction.user;
-        const avatarUrl = user.displayAvatarURL({ dynamic: true })
+        const avatarUrl = user.avatarURL()
 
-        const embed = new Embed(user.username).setImage(avatarUrl).setColor('4169e1')
 
         await interaction.followUp({
-            embeds: embed.get()
+            embeds: [{
+                title: user.username,
+                image: { url: avatarUrl },
+                color: 0x4169e1
+            }]
         });
     }
 } as ContextCommand;

@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import { Client, ClientOptions, Intents } from "discord.js";
+import { Client, ClientOptions, GatewayIntentBits as Intents } from "discord.js";
 
 import EventSubscriber from "./lib/EventSubscriber";
 
@@ -9,7 +9,7 @@ console.log("Bot is starting...");
 
 //GUILD_MESSAGES
 const client = new Client({
-    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
+    intents: [Intents.Guilds, Intents.GuildMessages]
 });
 
 
@@ -20,7 +20,8 @@ LoadCommands().then((commands) => {
 
 LoadContextMenuCommands().then((commands) => {
     //@ts-ignore
-    console.log('Context Commands (' + commands.length + '): ' + commands.map(x => x.name).join(', '))
+    if (commands)
+        console.log('Context Commands (' + commands.length + '): ' + commands.map(x => x.name).join(', '))
 });
 
 
